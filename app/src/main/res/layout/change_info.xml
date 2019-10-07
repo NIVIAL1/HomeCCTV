@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgnormal">
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="5dp"
+            android:text="정보 변경"
+            android:textSize="40dp" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/change_pw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="비밀번호"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/change_pw2"
+        app:layout_constraintStart_toStartOf="@+id/change_pw2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
+
+    <EditText
+        android:id="@+id/change_pw2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/change_pw_request"
+        app:layout_constraintStart_toStartOf="@+id/change_pw_request"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw" />
+
+    <EditText
+        android:id="@+id/change_pw_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="비밀번호 찾기 질문"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/change_pw_answer"
+        app:layout_constraintStart_toStartOf="@+id/change_pw_answer"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw2" />
+
+    <EditText
+        android:id="@+id/change_pw_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="비밀번호 찾기 답변"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/change_phone"
+        app:layout_constraintStart_toStartOf="@+id/change_phone"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw_request" />
+
+    <EditText
+        android:id="@+id/change_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="전화번호"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/change_IP"
+        app:layout_constraintStart_toStartOf="@+id/change_IP"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw_answer" />
+
+    <EditText
+        android:id="@+id/change_IP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="IP"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/change_PORT"
+        app:layout_constraintStart_toStartOf="@+id/change_PORT"
+        app:layout_constraintTop_toBottomOf="@+id/change_phone" />
+
+    <EditText
+        android:id="@+id/change_PORT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="PORT"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_IP" />
+
+
+    <Button
+        android:id="@+id/button_change_info"
+        android:layout_width="142dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="120dp"
+        android:text="정보변경 신청"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
