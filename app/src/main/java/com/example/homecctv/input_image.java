@@ -18,7 +18,7 @@ import android.widget.Toast;
 public class input_image extends AppCompatActivity {
 
     final int PICTURE_REQUEST_CODE = 100;
-    ImageView image1, image2, image3;
+    ImageView image1, image2, image3, back;
     TextView input_img_name;
     Button btn_input_image;
     @Override
@@ -35,11 +35,18 @@ public class input_image extends AppCompatActivity {
         image3 = (ImageView)findViewById(R.id.img3);
         input_img_name = (TextView)findViewById(R.id.input_image_name);
         btn_input_image = (Button)findViewById(R.id.button_input_img);
+        back = findViewById(R.id.back4);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         btn_input_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(input_image.this,"이미지 입력에 실패하였습니다.\n사진을 다시 선택해 주십시오.",Toast.LENGTH_LONG).show();
+                Toast.makeText(input_image.this,"이미지 입력에 실패하였습니다.\n사진을 다시 선택해 주십시오.",Toast.LENGTH_SHORT).show();
 
             }
         });

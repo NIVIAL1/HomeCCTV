@@ -22,7 +22,8 @@ public class signup extends Activity {
     EditText pw;
     Button sign_up, selectimg;
     TextView signup_imgname;
-    ImageView img;
+    ImageView img, back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,14 @@ public class signup extends Activity {
         selectimg = (Button)findViewById(R.id.button_select_image);
         signup_imgname = (TextView)findViewById(R.id.sign_imagename);
         img = (ImageView)findViewById(R.id.sign_img);
+        back = findViewById(R.id.back0);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         selectimg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,11 +60,11 @@ public class signup extends Activity {
             @Override
             public void onClick(View v) {
                 if(pw.getText().toString().equals("111")){
-                    Toast.makeText(signup.this,"회원가입에 성공하였습니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(signup.this,"회원가입에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Splash.class));
                 }
                 else{
-                    Toast.makeText(signup.this,"회원가입에 실패하였습니다.\n주어진 양식을 충족시켜주십시오.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(signup.this,"회원가입에 실패하였습니다.\n주어진 양식을 충족시켜주십시오.",Toast.LENGTH_SHORT).show();
                 }
             }
         });

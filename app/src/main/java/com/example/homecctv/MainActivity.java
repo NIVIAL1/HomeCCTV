@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.raw.loading).into(gifImage);
 
         Handler hd = new Handler();
-        hd.postDelayed(new splashhandler(), 1000);
+        hd.postDelayed(new splashhandler(), 500);
 
     }
 

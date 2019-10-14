@@ -12,11 +12,19 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:background="@color/menu"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/back6"
+            android:layout_width="59dp"
+            android:layout_height="59dp"
+            android:src="@drawable/back"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="16dp" />
         <TextView
             android:id="@+id/video_date"
             android:layout_width="wrap_content"
@@ -52,7 +60,7 @@
                 android:id="@+id/imageView3"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/video" />
+                android:src="@drawable/video" />
 
             <TextView
                 android:id="@+id/textView3"
@@ -74,7 +82,7 @@
                 android:id="@+id/imageView4"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/video" />
+                android:src="@drawable/video" />
 
             <TextView
                 android:id="@+id/textView4"
@@ -96,7 +104,7 @@
                 android:id="@+id/imageView5"
                 android:layout_width="70dp"
                 android:layout_height="50dp"
-                app:srcCompat="@drawable/video"/>
+                android:src="@drawable/video"/>
 
             <TextView
                 android:id="@+id/textView5"

@@ -24,12 +24,12 @@ public class Splash extends Activity {
             getWindow().setStatusBarColor(Color.rgb(00,85,77));
         }
 
-        Button btn_login = (Button)findViewById(R.id.button_login);
-        TextView btn_signup = (TextView)findViewById(R.id.signup);
-        TextView btn_lostid = (TextView)findViewById(R.id.lostid);
-        TextView btn_lostpw = (TextView)findViewById(R.id.lostpw);
-        id = (EditText)findViewById(R.id.user_id);
-        pw = (EditText)findViewById(R.id.user_pw);
+        Button btn_login = findViewById(R.id.button_login);
+        TextView btn_signup = findViewById(R.id.signup);
+        TextView btn_lostid = findViewById(R.id.lostid);
+        TextView btn_lostpw = findViewById(R.id.lostpw);
+        id = findViewById(R.id.user_id);
+        pw = findViewById(R.id.user_pw);
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +55,11 @@ public class Splash extends Activity {
             @Override
             public void onClick(View v) {
                 if(pw.getText().toString().equals("111")){
-                    Toast.makeText(Splash.this,"로그인에 성공하였습니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Splash.this,"로그인에 성공하였습니다.",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Main_screen.class));
                 }
                 else{
-                    Toast.makeText(Splash.this,"로그인에 실패하였습니다.\n아이디와 비밀번호가 일치하지 않습니다.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Splash.this,"로그인에 실패하였습니다.\n아이디와 비밀번호가 일치하지 않습니다.",Toast.LENGTH_SHORT).show();
                 }
             }
         });

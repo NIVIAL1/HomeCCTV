@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class video_list extends Activity {
     TextView date_name;
+    ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +19,14 @@ public class video_list extends Activity {
         }
         setContentView(R.layout.video_list);
 
+        back = findViewById(R.id.back6);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         date_name = (TextView)findViewById(R.id.video_date);
         Intent intent = getIntent();
         String selectedDate = intent.getExtras().getString("date");

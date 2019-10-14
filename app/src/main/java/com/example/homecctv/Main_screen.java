@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -16,13 +18,31 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main_screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    ImageView record;
+    ImageView record, up, down, right, left;
+    private RequestQueue queue;
+    private static final String TAG = "MAIN";
+
+    Handler mHandler = new Handler(){
+        public void handleMessage(Message msg){
+            mHandler.sendEmptyMessageDelayed(0,100);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,22 +54,176 @@ public class Main_screen extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        queue = Volley.newRequestQueue(this);
+        String url = "http://35.221.206.41:52273/control/cameraSigFM";
+        final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("controlData", "0");
+                return params;
+            }
+        };
+        final StringRequest stringRequest_down = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("controlData", "1");
+                return params;
+            }
+        };
+        final StringRequest stringRequest_left = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("controlData", "2");
+                return params;
+            }
+        };
+        final StringRequest stringRequest_right = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("controlData", "3");
+                return params;
+            }
+        };
+        stringRequest_up.setTag(TAG);
+        stringRequest_down.setTag(TAG);
+        stringRequest_left.setTag(TAG);
+        stringRequest_right.setTag(TAG);
+
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        record = findViewById(R.id.record);
+        up = findViewById(R.id.button_up);
+        down = findViewById(R.id.button_down);
+        right = findViewById(R.id.button_right);
+        left = findViewById(R.id.button_left);
 
-        record = (ImageView)findViewById(R.id.record);
+        String TAG = this.getClass().getSimpleName();
+        
+
+        up.setOnLongClickListener(new ImageView.OnLongClickListener(){
+            public boolean onLongClick(View v){
+                mHandler.sendEmptyMessageDelayed(0,100);
+                queue.add(stringRequest_up);
+                return false;
+            }
+        });
+
+        up.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.removeMessages(0);
+                queue.add(stringRequest_up);
+            }
+
+        });
+        down.setOnLongClickListener(new ImageView.OnLongClickListener(){
+            public boolean onLongClick(View v){
+                mHandler.sendEmptyMessageDelayed(0,100);
+                queue.add(stringRequest_down);
+                return false;
+            }
+        });
+        down.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.removeMessages(0);
+                queue.add(stringRequest_down);
+            }
+        });
+        right.setOnLongClickListener(new ImageView.OnLongClickListener(){
+            public boolean onLongClick(View v){
+                mHandler.sendEmptyMessageDelayed(0,100);
+                queue.add(stringRequest_right);
+                return false;
+            }
+        });
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.removeMessages(0);
+                queue.add(stringRequest_right);
+            }
+        });
+        left.setOnLongClickListener(new ImageView.OnLongClickListener(){
+            public boolean onLongClick(View v){
+                mHandler.sendEmptyMessageDelayed(0,100);
+                queue.add(stringRequest_left);
+                return false;
+            }
+        });
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mHandler.removeMessages(0);
+                queue.add(stringRequest_left);
+            }
+        });
+
         record.setOnClickListener(new View.OnClickListener() {
+            int inputcount = 0;
 
             @Override
             public void onClick(View v) {
+                if(inputcount%2==0){
+                    inputcount++;
+                    Toast.makeText(Main_screen.this,"녹화를 시작합니다.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    inputcount++;
+                    Toast.makeText(Main_screen.this,"녹화를 종료합니다.",Toast.LENGTH_SHORT).show();
+                }
 
-                Toast.makeText(Main_screen.this,"녹화를 종료합니다.",Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -93,7 +267,7 @@ public class Main_screen extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.logout) {
-            Toast.makeText(Main_screen.this,"로그아웃\n로그인 화면으로 돌아갑니다.",Toast.LENGTH_LONG).show();
+            Toast.makeText(Main_screen.this,"로그아웃\n로그인 화면으로 돌아갑니다.",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplication(), Splash.class));
             Main_screen.this.finish();
         } else if (id == R.id.changesign) {
@@ -106,7 +280,7 @@ public class Main_screen extends AppCompatActivity
             startActivity(new Intent(getApplication(), withdrawal.class));
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
