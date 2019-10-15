@@ -34,7 +34,7 @@ import java.util.Map;
 
 public class Main_screen extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    ImageView record, up, down, right, left;
+    private ImageView record, up, down, right, left;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
 
@@ -53,18 +53,24 @@ public class Main_screen extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        record = findViewById(R.id.record);
+        up = findViewById(R.id.button_up);
+        down = findViewById(R.id.button_down);
+        right = findViewById(R.id.button_right);
+        left = findViewById(R.id.button_left);
         queue = Volley.newRequestQueue(this);
         String url = "http://35.221.206.41:52273/control/cameraSigFM";
+
         final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(Main_screen.this,response,Toast.LENGTH_SHORT);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -141,70 +147,37 @@ public class Main_screen extends AppCompatActivity
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        record = findViewById(R.id.record);
-        up = findViewById(R.id.button_up);
-        down = findViewById(R.id.button_down);
-        right = findViewById(R.id.button_right);
-        left = findViewById(R.id.button_left);
 
-        String TAG = this.getClass().getSimpleName();
         
 
-        up.setOnLongClickListener(new ImageView.OnLongClickListener(){
-            public boolean onLongClick(View v){
-                mHandler.sendEmptyMessageDelayed(0,100);
-                queue.add(stringRequest_up);
-                return false;
-            }
-        });
+
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHandler.removeMessages(0);
                 queue.add(stringRequest_up);
+
             }
 
         });
-        down.setOnLongClickListener(new ImageView.OnLongClickListener(){
-            public boolean onLongClick(View v){
-                mHandler.sendEmptyMessageDelayed(0,100);
-                queue.add(stringRequest_down);
-                return false;
-            }
-        });
+
         down.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHandler.removeMessages(0);
                 queue.add(stringRequest_down);
             }
         });
-        right.setOnLongClickListener(new ImageView.OnLongClickListener(){
-            public boolean onLongClick(View v){
-                mHandler.sendEmptyMessageDelayed(0,100);
-                queue.add(stringRequest_right);
-                return false;
-            }
-        });
+
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHandler.removeMessages(0);
                 queue.add(stringRequest_right);
             }
         });
-        left.setOnLongClickListener(new ImageView.OnLongClickListener(){
-            public boolean onLongClick(View v){
-                mHandler.sendEmptyMessageDelayed(0,100);
-                queue.add(stringRequest_left);
-                return false;
-            }
-        });
+
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mHandler.removeMessages(0);
                 queue.add(stringRequest_left);
             }
         });
@@ -226,6 +199,13 @@ public class Main_screen extends AppCompatActivity
 
             }
         });
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(TAG);
+        }
     }
 
     @Override
