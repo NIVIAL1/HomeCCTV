@@ -18,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,17 +33,12 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main_screen extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+public class Main_screen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private ImageView record, up, down, right, left;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
 
-    Handler mHandler = new Handler(){
-        public void handleMessage(Message msg){
-            mHandler.sendEmptyMessageDelayed(0,100);
-        }
-    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,7 +62,16 @@ public class Main_screen extends AppCompatActivity
         left = findViewById(R.id.button_left);
         queue = Volley.newRequestQueue(this);
         String url = "http://35.221.206.41:52273/control/cameraSigFM";
+        WebView webView = (WebView)findViewById(R.id.webView);
 
+        String url_web = "http://192.168.43.69:9004/?action=stream";
+        webView.loadUrl(url_web);
+        webView.setPadding(0,0,0,0);
+        //webView.setInitialScale(100);
+        webView.getSettings().setBuiltInZoomControls(false);
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.getSettings().setLoadWithOverviewMode(true);
+        webView.getSettings().setUseWideViewPort(true);
         final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -149,16 +154,36 @@ public class Main_screen extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         
-
-
+        up.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue.add(stringRequest_up);
+            }
+        }));
+        down.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue.add(stringRequest_down);
+            }
+        }));
+        left.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue.add(stringRequest_left);
+            }
+        }));
+        right.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue.add(stringRequest_right);
+            }
+        }));
 
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 queue.add(stringRequest_up);
-
             }
-
         });
 
         down.setOnClickListener(new View.OnClickListener() {
