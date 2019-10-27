@@ -88,29 +88,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_pw2" />
 
-    <EditText
+    <Spinner
         android:id="@+id/sign_pw_request"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
-        android:ems="10"
-        android:hint="비밀번호 찾기 질문"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/sign_pw_answer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_name" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_name">
+
+    </Spinner>
 
     <EditText
         android:id="@+id/sign_pw_answer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="9dp"
+        android:layout_marginTop="45dp"
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="비밀번호 찾기 답변"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_pw_request" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_name" />
 
     <EditText
         android:id="@+id/sign_phone"

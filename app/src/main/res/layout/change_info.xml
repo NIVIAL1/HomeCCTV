@@ -38,12 +38,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="비밀번호"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="@+id/change_pw2"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/change_pw2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
@@ -60,27 +61,30 @@
         app:layout_constraintStart_toStartOf="@+id/change_pw_request"
         app:layout_constraintTop_toBottomOf="@+id/change_pw" />
 
-    <EditText
+    <Spinner
         android:id="@+id/change_pw_request"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="비밀번호 찾기 질문"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/change_pw_answer"
-        app:layout_constraintStart_toStartOf="@+id/change_pw_answer"
-        app:layout_constraintTop_toBottomOf="@+id/change_pw2" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw2">
+
+    </Spinner>
 
     <EditText
         android:id="@+id/change_pw_answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="비밀번호 찾기 답변"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         app:layout_constraintEnd_toEndOf="@+id/change_phone"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/change_phone"
         app:layout_constraintTop_toBottomOf="@+id/change_pw_request" />
 
@@ -88,11 +92,12 @@
         android:id="@+id/change_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="전화번호"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="전화번호"
         app:layout_constraintEnd_toEndOf="@+id/change_IP"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/change_IP"
         app:layout_constraintTop_toBottomOf="@+id/change_pw_answer" />
 
@@ -100,10 +105,10 @@
         android:id="@+id/change_IP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="IP"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="IP"
         app:layout_constraintEnd_toEndOf="@+id/change_PORT"
         app:layout_constraintStart_toStartOf="@+id/change_PORT"
         app:layout_constraintTop_toBottomOf="@+id/change_phone" />
@@ -112,10 +117,9 @@
         android:id="@+id/change_PORT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:ems="10"
         android:hint="PORT"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_IP" />
 

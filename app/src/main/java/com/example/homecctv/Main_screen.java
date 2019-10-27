@@ -30,6 +30,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,10 +64,11 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         right = findViewById(R.id.button_right);
         left = findViewById(R.id.button_left);
         queue = Volley.newRequestQueue(this);
-        String url = "http://35.221.206.41:52273/control/cameraSigFM";
+
+        String url = "http://35.221.206.41:52273/control/cameraSigFM";          // 서버 주소
         WebView webView = (WebView)findViewById(R.id.webView);
 
-        String url_web = "http://192.168.43.69:9004/?action=stream";
+        String url_web = "http://192.168.0.32:9004/?action=stream";             // 카메라 주소
         webView.loadUrl(url_web);
         webView.setPadding(0,0,0,0);
         //webView.setInitialScale(100);
@@ -86,6 +90,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("id", "0");
                 params.put("controlData", "0");
                 return params;
             }
@@ -104,6 +109,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("id", "0");
                 params.put("controlData", "1");
                 return params;
             }
@@ -122,6 +128,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("id", "0");
                 params.put("controlData", "2");
                 return params;
             }
@@ -140,6 +147,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+                params.put("id", "0");
                 params.put("controlData", "3");
                 return params;
             }
@@ -153,7 +161,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        
+        /*
         up.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,7 +186,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
                 queue.add(stringRequest_right);
             }
         }));
-
+        */
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,4 +297,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
+
