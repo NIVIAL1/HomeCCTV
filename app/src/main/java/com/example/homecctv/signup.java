@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.URI;
@@ -74,9 +76,7 @@ public class signup extends AppCompatActivity {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
 
-        Log.d("tste", "Before");
         sendRequest();
-        Log.d("tste","dd");
 
         Spinner spinner1;
         AdapterSpinner1 adapterSpinner1;
@@ -100,7 +100,7 @@ public class signup extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI);
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setType("image/*");
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICTURE_REQUEST_CODE);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICTURE_REQUEST_CODE);           // 갤러리에서 이미지 선택
             }
         });
 
@@ -108,7 +108,7 @@ public class signup extends AppCompatActivity {
         final StringRequest img_post = new StringRequest(Request.Method.POST, urls, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(signup.this,response,Toast.LENGTH_SHORT);
+                
             }
         }, new Response.ErrorListener() {
             @Override
@@ -151,15 +151,25 @@ public class signup extends AppCompatActivity {
                         for (int i = 0; i < 3; i++) {
                             if (i < clipData.getItemCount()) {
                                 Uri urione = clipData.getItemAt(i).getUri();
+                                Log.d("img",urione.toString());
                                 switch (i) {
                                     case 0:
                                         img.setImageURI(urione);
+                                        Log.d("img",urione.toString());
+                                        /*
+                                        Bitmap bitmap = ((BitmapDrawable)img.getDrawable()).getBitmap();
+                                        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                                        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+                                        byte[] byteArray = byteArrayOutputStream.toByteArray();
+                                        */
+
                                         break;
                                 }
                             }
                         }
                     } else if (uri != null) {
                         img.setImageURI(uri);
+
                     }
                 }
             }
@@ -171,32 +181,22 @@ public class signup extends AppCompatActivity {
             public void onResponse(String response) {
 
 
-                Log.d("tste", response);
-                Log.d("tste", "Make pass");
                 pass = new ArrayList<>();
-                Log.d("tste", "Make pass");
                 String[] array = jsonParser(response);
-                Log.d("tste", "number make");
                 String[] question = array[1].split(",");
-                Log.d("tste", "question make");
 
                 for (int i = 0; i < question.length; i++) {
                     pass.add(question[i]);
                     data.add(question[i]);
-
                 }
             }
         },
              new Response.ErrorListener() { //에러발생시 호출될 리스너 객체
                 @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("tste", error.toString());
                     }
                 }
         ) {
-            //만약 POST 방식에서 전달할 요청 파라미터가 있다면 getParams 메소드에서 반환하는 HashMap 객체에 넣어줍니다.
-            //이렇게 만든 요청 객체는 요청 큐에 넣어주는 것만 해주면 됩니다.
-            //POST방식으로 안할거면 없어도 되는거같다.
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
