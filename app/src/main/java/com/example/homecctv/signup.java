@@ -49,7 +49,7 @@ import java.util.Map;
 public class signup extends AppCompatActivity {
 
     final int PICTURE_REQUEST_CODE = 100;
-    EditText pw;
+    EditText id, pw, pw2, name, request, answer, phone, ip, port;
     Button sign_up, selectimg;
     TextView signup_imgname;
     ImageView img, back;
@@ -64,8 +64,19 @@ public class signup extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.rgb(00, 85, 77));
         }
+        id = findViewById(R.id.sign_id);
         pw = (EditText) findViewById(R.id.sign_pw);
+        pw2 = findViewById(R.id.sign_pw2);
+        name = findViewById(R.id.sign_name);
+        answer = findViewById(R.id.sign_pw_answer);
+        phone = findViewById(R.id.sign_phone);
+        ip = findViewById(R.id.sign_IP);
+        port = findViewById(R.id.sign_PORT);
+
         sign_up = (Button) findViewById(R.id.button_sign_up);
+
+
+
         selectimg = (Button) findViewById(R.id.button_select_image);
         signup_imgname = (TextView) findViewById(R.id.sign_imagename);
         img = (ImageView) findViewById(R.id.sign_img);
@@ -104,36 +115,19 @@ public class signup extends AppCompatActivity {
             }
         });
 
-        String urls = "http://35.221.206.41:52274/imageWrite";
-        final StringRequest img_post = new StringRequest(Request.Method.POST, urls, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("img"," ");
-                return params;
-            }
-        };
 
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (pw.getText().toString().equals("111")) {
-                    queue.add(img_post);
+                if (pw.getText().toString()!=pw2.getText().toString()) {
+                    Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n비밀번호와 비밀번호 확인을 일치시켜주십시오.", Toast.LENGTH_SHORT).show();
+                } else if(id.getText().toString()==null || pw.getText().toString()==null || pw2.getText().toString()==null || name.getText().toString()==null || request.getText().toString()==null || phone.getText().toString()==null || ip.getText().toString()==null || port.getText().toString()==null){
+                    Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n빈 칸을 모두 작성하여 주십시오.", Toast.LENGTH_SHORT).show();
 
+                } else{
                     Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Splash.class));
-                } else {
-                    Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n주어진 양식을 충족시켜주십시오.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
