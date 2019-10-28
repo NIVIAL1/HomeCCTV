@@ -35,6 +35,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,6 +60,8 @@ public class signup extends AppCompatActivity {
     List<String> data = new ArrayList<>();
     private RequestQueue queue;
     Spinner spinner1;
+    JSONObject js = new JSONObject();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,8 @@ public class signup extends AppCompatActivity {
         back = findViewById(R.id.back0);
         queue = Volley.newRequestQueue(this);
 
+
+
         if (AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
@@ -99,12 +104,13 @@ public class signup extends AppCompatActivity {
         Log.d("test",data.toString()+"1");
 
 
-        spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+//        spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                selected_question.setText(data.get(position));
+//                questionNum = position;
+//            }
+//        });
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -266,7 +272,7 @@ public class signup extends AppCompatActivity {
 
         String[] arraysum = new String[2];
         try {
-            JSONObject js = new JSONObject(response);
+            js = new JSONObject(response);
             num = js.optString("passQNum");
             question = js.optString("question");
             arraysum[0] = num;
