@@ -76,6 +76,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
+
         final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
