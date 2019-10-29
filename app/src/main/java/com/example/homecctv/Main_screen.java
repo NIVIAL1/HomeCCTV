@@ -65,7 +65,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         left = findViewById(R.id.button_left);
         queue = Volley.newRequestQueue(this);
 
-        String url = "http://35.221.206.41:52273/control/cameraSigFM";          // 서버 주소
+        String url = "http://35.221.206.41:52274/control/cameraSigFM";          // 서버 주소
         WebView webView = (WebView)findViewById(R.id.webView);
 
         String url_web = "http://192.168.0.32:9004/?action=stream";             // 카메라 주소

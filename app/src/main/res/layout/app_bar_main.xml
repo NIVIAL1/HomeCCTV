@@ -44,7 +44,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/webView"
-        app:srcCompat="@drawable/up3" />
+        app:srcCompat="@drawable/up" />
 
     <ImageView
         android:id="@+id/button_down"
@@ -61,7 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/record"
         app:layout_constraintVertical_bias="0.184"
-        app:srcCompat="@drawable/down3" />
+        app:srcCompat="@drawable/down" />
 
     <ImageView
         android:id="@+id/button_right"
@@ -75,7 +75,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/record"
         app:layout_constraintTop_toTopOf="@+id/record"
-        app:srcCompat="@drawable/right3" />
+        app:srcCompat="@drawable/right" />
 
     <ImageView
         android:id="@+id/button_left"
@@ -86,7 +86,7 @@
         app:layout_anchorGravity="left|center"
         app:layout_constraintEnd_toStartOf="@+id/record"
         app:layout_constraintTop_toTopOf="@+id/record"
-        app:srcCompat="@drawable/left3" />
+        app:srcCompat="@drawable/left" />
 
     <ImageView
         android:id="@+id/record"
@@ -101,7 +101,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_up"
-        app:srcCompat="@drawable/record3" />
+        app:srcCompat="@drawable/record" />
 
     <WebView
         android:id="@+id/webView"
