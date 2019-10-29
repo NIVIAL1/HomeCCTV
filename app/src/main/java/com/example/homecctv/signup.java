@@ -54,13 +54,14 @@ public class signup extends AppCompatActivity {
     EditText sign_id, sign_pw, sign_pw2, sign_name, sign_pw_answer, sign_phone, sign_IP, sign_PORT;
     int questionNum = -1;
     Button sign_up, selectimg;
-    TextView signup_imgname,selected_question;
+    TextView signup_imgname;
     ImageView img, back;
     ArrayList<String> pass = new ArrayList<>();
     List<String> data = new ArrayList<>();
     private RequestQueue queue;
     Spinner spinner1;
     JSONObject js = new JSONObject();
+    AdapterSpinner1 adapterSpinner1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,6 @@ public class signup extends AppCompatActivity {
         sign_IP=(EditText)findViewById(R.id.sign_IP);
         sign_PORT=(EditText)findViewById(R.id.sign_PORT);
         sign_up = (Button) findViewById(R.id.button_sign_up);
-        selected_question = (TextView)findViewById(R.id.selected_question);
         selectimg = (Button) findViewById(R.id.button_select_image);
         signup_imgname = (TextView) findViewById(R.id.sign_imagename);
         img = (ImageView) findViewById(R.id.sign_img);
@@ -95,7 +95,7 @@ public class signup extends AppCompatActivity {
         sendRequest();
 
 
-        final AdapterSpinner1 adapterSpinner1;
+
 
 
         spinner1 = findViewById(R.id.sign_pw_request);
@@ -103,27 +103,14 @@ public class signup extends AppCompatActivity {
         spinner1.setAdapter(adapterSpinner1);
         Log.d("test",data.toString()+"1");
 
-
-//        spinner1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                selected_question.setText(data.get(position));
-//                questionNum = position;
-//            }
-//        });
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(signup.this,"aaa",Toast.LENGTH_LONG).show();
-                selected_question.setText(adapterSpinner1.getItem(position).toString());
-                Log.d("test",selected_question.getText().toString());
                 questionNum = position;
-                Log.d("test",Integer.toString(questionNum));
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                selected_question.setText("");
             }
         });
 
@@ -245,7 +232,7 @@ public class signup extends AppCompatActivity {
                     pass.add(question[i]);
                     data.add(question[i]);
                 }
-                Log.d("test",data.toString()+"6");
+                adapterSpinner1.notifyDataSetChanged();
             }
         },
                 new Response.ErrorListener() { //에러발생시 호출될 리스너 객체
