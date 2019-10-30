@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -49,7 +51,8 @@ import java.util.List;
 import java.util.Map;
 
 public class signup extends AppCompatActivity {
-
+    public String path;
+    public String result = "hellow";
     final int PICTURE_REQUEST_CODE = 100;
     EditText sign_id, sign_pw, sign_pw2, sign_name, sign_pw_answer, sign_phone, sign_IP, sign_PORT;
     int questionNum = -1;
@@ -175,6 +178,16 @@ public class signup extends AppCompatActivity {
                 } else {
                     queue.add(signup_request);
                     startActivity(new Intent(getApplication(), Splash.class));
+                    new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                AndroidUploader uploader = new AndroidUploader();
+                                result = uploader.uploadPicture(path);
+                            } catch (Exception e) {
+                                Log.e(e.getClass().getName(), e.getMessage());
+                            }
+                        }
+                    }).start();
                     Toast.makeText(signup.this,"회원가입에 성공하였습니다.",Toast.LENGTH_LONG).show();
                 }
             }
@@ -210,8 +223,8 @@ public class signup extends AppCompatActivity {
                         }
                     }
                 } else if (uri != null) {
+                    path=getPath(uri);
                     img.setImageURI(uri);
-
                 }
             }
         }
@@ -271,6 +284,12 @@ public class signup extends AppCompatActivity {
 
         return arraysum;
     }
-
-
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        startManagingCursor(cursor);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(columnIndex);
+    }
 }
