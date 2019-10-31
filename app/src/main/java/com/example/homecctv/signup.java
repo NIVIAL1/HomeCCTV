@@ -119,7 +119,7 @@ public class signup extends AppCompatActivity {
 
 
         Log.d("test",data.toString()+"2");
-        String url_signup = "http://35.221.206.41:52274/register/index";
+        String url_signup = "http://35.244.111.116:52274/register/index";
         final StringRequest signup_request = new StringRequest(Request.Method.POST, url_signup, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -182,7 +182,7 @@ public class signup extends AppCompatActivity {
                         public void run() {
                             try {
                                 AndroidUploader uploader = new AndroidUploader();
-                                result = uploader.uploadPicture(path);
+                                result = uploader.uploadPicture(path,sign_id.getText().toString(),sign_name.getText().toString());
                             } catch (Exception e) {
                                 Log.e(e.getClass().getName(), e.getMessage());
                             }
@@ -231,7 +231,7 @@ public class signup extends AppCompatActivity {
     }
 
     public ArrayList<String> sendRequest() {
-        String url = "http://35.221.206.41:52274/register/getQuestion";
+        String url = "http://35.244.111.116:52274/register/getQuestion";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
