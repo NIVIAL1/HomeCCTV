@@ -37,7 +37,7 @@ public class video_view extends AppCompatActivity implements SurfaceHolder.Callb
 
         try {
 
-            String path = "http://35.221.206.41:80/?videoName="+UserData.video_name;
+            String path = "http://35.221.206.41:52270/?videoName="+UserData.video_name;
             mediaPlayer.setDataSource(path);
 
             //mediaPlayer.setVolume(0, 0); //볼륨 제거
