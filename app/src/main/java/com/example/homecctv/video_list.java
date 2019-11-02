@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class video_list extends Activity {
+
+/*
     TextView date_name;
     ImageView back;
     @Override
@@ -29,9 +33,13 @@ public class video_list extends Activity {
         });
         date_name = (TextView)findViewById(R.id.video_date);
         Intent intent = getIntent();
-        String selectedDate = intent.getExtras().getString("date");
+        selectedDate = intent.getExtras().getString("date");
         date_name.setText(selectedDate);
 
+        startActivity(new Intent(getApplication(), VideoList.class));
+        }
 
-    }
+ */
+
+
 }

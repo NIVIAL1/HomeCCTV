@@ -147,8 +147,6 @@ public class signup extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
-
                  if(num.equals("1")){                   // 성공
                         Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplication(), Splash.class));
@@ -286,7 +284,6 @@ public class signup extends AppCompatActivity {
         request.setShouldCache(false);
         AppHelper.requestQueue.add(request);
         return pass;
-
     }
 
     public String[] jsonParser (String response){
@@ -300,11 +297,9 @@ public class signup extends AppCompatActivity {
             question = js.optString("question");
             arraysum[0] = num;
             arraysum[1] = question;
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return arraysum;
     }
 
