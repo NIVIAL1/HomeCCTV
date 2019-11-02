@@ -20,6 +20,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,8 +32,7 @@ public class lostid extends Activity {
     Button btn_lostid;
     ImageView back;
     private RequestQueue queue;
-    String user_id;
-
+    JSONObject js = new JSONObject();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +43,9 @@ public class lostid extends Activity {
             getWindow().setStatusBarColor(Color.rgb(00,85,77));
         }
 
-
         name = (EditText)findViewById(R.id.lost_id_name);
         phone = (EditText)findViewById(R.id.lost_id_phone);
-
         btn_lostid = (Button)findViewById(R.id.button_lostid);
-
         back = findViewById(R.id.back1);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,14 +54,36 @@ public class lostid extends Activity {
             }
         });
 
-
         queue = Volley.newRequestQueue(this);
         String url_lostid = "http://35.221.206.41:52274/find/idFind";
         final StringRequest lostid_request = new StringRequest(Request.Method.POST, url_lostid, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
+            public void onResponse(String response) {               // 아이디찾기 성공 유무 보내주는 것 받음
+                String num = null;
+                String id = null;
 
-                // 아이디찾기 성공 유무 보내주는 것 받음
+                String[] arraysum = new String[2];
+
+                try {
+                    js = new JSONObject(response);
+                    num = js.optString("result");
+                    id = js.optString("id");
+                    arraysum[0] = num;
+                    arraysum[1] = id;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(num.equals("1")){             // 성공
+                    Toast.makeText(lostid.this, "아이디 찾기에 성공하였습니다.\n"+id+" 입니다.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplication(), Splash.class));
+
+                }
+                else {                           // 실패(id 존재하지 않음)
+                    Toast.makeText(lostid.this, "아이디 찾기에 실패하였습니다.\n일치하는 정보가 없습니다..", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -87,7 +109,6 @@ public class lostid extends Activity {
                 }
                 else{
                     queue.add(lostid_request);
-                    Toast.makeText(lostid.this,"아이디는 ababk 입니다.",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Splash.class));
 
                 }

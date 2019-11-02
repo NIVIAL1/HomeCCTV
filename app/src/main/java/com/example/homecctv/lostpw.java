@@ -80,8 +80,31 @@ public class lostpw extends Activity {
         String url_lost_pw = "http://35.221.206.41:52274/find/passFind/index";
         final StringRequest lost_pw_request = new StringRequest(Request.Method.POST, url_lost_pw, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                // 비밀번호찾기 성공 유무 보내주는 것 받음
+            public void onResponse(String response) {               // 비밀번호찾기 성공 유무 보내주는 것 받음
+                String num = null;
+                String pw = null;
+
+                String[] arraysum = new String[2];
+
+                try {
+                    js = new JSONObject(response);
+                    num = js.optString("result");
+                    pw = js.optString("password");
+                    arraysum[0] = num;
+                    arraysum[1] = pw;
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                if(num.equals("1")){             // 성공
+                    Toast.makeText(lostpw.this, "비밀번호 찾기에 성공하였습니다.\n"+pw+" 입니다.", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplication(), Splash.class));
+
+                }
+                else {                           // 실패(id 존재하지 않음)
+                    Toast.makeText(lostpw.this, "비밀번호 찾기에 실패하였습니다.\n일치하는 정보가 없습니다..", Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
@@ -114,8 +137,6 @@ public class lostpw extends Activity {
                 }
                 else{
                     queue.add(lost_pw_request);
-                    startActivity(new Intent(getApplication(), Splash.class));
-                    Toast.makeText(lostpw.this,"비밀번호는 "+"  입니다",Toast.LENGTH_SHORT).show();
                 }
 
             }

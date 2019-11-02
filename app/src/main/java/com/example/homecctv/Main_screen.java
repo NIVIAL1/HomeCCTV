@@ -162,32 +162,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*
-        up.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_up);
-            }
-        }));
-        down.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_down);
-            }
-        }));
-        left.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_left);
-            }
-        }));
-        right.setOnTouchListener(new RepeatListener(1500, 300, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_right);
-            }
-        }));
-        */
+
         up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

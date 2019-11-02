@@ -1,9 +1,11 @@
 package com.example.homecctv;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +16,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,6 +64,7 @@ public class signup extends AppCompatActivity {
     TextView signup_imgname;
     ImageView img, back;
     ArrayList<String> pass = new ArrayList<>();
+    ArrayList<String> signup_result = new ArrayList<>();
     List<String> data = new ArrayList<>();
     private RequestQueue queue;
     Spinner spinner1;
@@ -73,7 +78,15 @@ public class signup extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.rgb(00, 85, 77));
         }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)) {
 
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        1);
+            }
+        }
         sign_id= (EditText) findViewById(R.id.sign_id);
         sign_pw=(EditText) findViewById(R.id.sign_pw);
         sign_pw2=(EditText)findViewById(R.id.sign_pw2);
@@ -104,7 +117,6 @@ public class signup extends AppCompatActivity {
         spinner1 = findViewById(R.id.sign_pw_request);
         adapterSpinner1 = new AdapterSpinner1(this, data);
         spinner1.setAdapter(adapterSpinner1);
-        Log.d("test",data.toString()+"1");
 
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -118,12 +130,33 @@ public class signup extends AppCompatActivity {
         });
 
 
-        Log.d("test",data.toString()+"2");
         String url_signup = "http://35.221.206.41:52274/register/index";
         final StringRequest signup_request = new StringRequest(Request.Method.POST, url_signup, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-                    // 회원가입 성공 유무 보내주는 것 받음
+            public void onResponse(String response2) {
+                signup_result = new ArrayList<>();
+                String num = null;
+
+
+                try {
+                    js = new JSONObject(response2);
+                    num = js.optString("result");
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                 if(num.equals("1")){             // 성공
+                        Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplication(), Splash.class));
+                    }
+                    else{                               // 실패
+                        Toast.makeText(signup.this, "회원가입에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                    }
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -163,7 +196,7 @@ public class signup extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICTURE_REQUEST_CODE);           // 갤러리에서 이미지 선택
             }
         });
-        Log.d("test",data.toString()+"4");
+
         sign_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -176,7 +209,7 @@ public class signup extends AppCompatActivity {
                     Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n이미지를 입력해 주십시오.", Toast.LENGTH_SHORT).show();
                 } else {
                     queue.add(signup_request);
-                    startActivity(new Intent(getApplication(), Splash.class));
+
                     new Thread(new Runnable() {
                         public void run() {
                             try {
@@ -187,11 +220,9 @@ public class signup extends AppCompatActivity {
                             }
                         }
                     }).start();
-                    Toast.makeText(signup.this,"회원가입에 성공하였습니다.",Toast.LENGTH_LONG).show();
                 }
             }
         });
-        Log.d("test",data.toString()+"5");
 
 
     }
@@ -234,8 +265,6 @@ public class signup extends AppCompatActivity {
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
-
                 pass = new ArrayList<>();
                 String[] array = jsonParser(response);
                 String[] question = array[1].split(",");
@@ -283,6 +312,9 @@ public class signup extends AppCompatActivity {
 
         return arraysum;
     }
+
+
+
     public String getPath(Uri uri) {
         String[] projection = {MediaStore.Images.Media.DATA};
         Cursor cursor = managedQuery(uri, projection, null, null, null);
