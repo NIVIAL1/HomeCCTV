@@ -119,7 +119,7 @@ public class signup extends AppCompatActivity {
 
 
         Log.d("test",data.toString()+"2");
-        String url_signup = "http://35.244.111.116:52274/register/index";
+        String url_signup = "http://35.221.206.41:52274/register/index";
         final StringRequest signup_request = new StringRequest(Request.Method.POST, url_signup, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -146,7 +146,6 @@ public class signup extends AppCompatActivity {
                 return params;
             }
         };
-        Log.d("test",data.toString()+"3");
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,8 +169,8 @@ public class signup extends AppCompatActivity {
             public void onClick(View v) {
                 if (!sign_pw.getText().toString().equals(sign_pw2.getText().toString())) {
                     Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n비밀번호와 비밀번호 확인을 일치시켜주십시오.", Toast.LENGTH_SHORT).show();
-                } else if (sign_id.getText().toString() == null || sign_pw.getText().toString() == null || sign_pw2.getText().toString() == null || sign_name.getText().toString() == null || questionNum == -1
-                        || sign_pw_answer.getText().toString() == null || sign_phone.getText().toString() == null || sign_IP.getText().toString() == null || sign_PORT.getText().toString() == null) {
+                } else if (sign_id.getText().toString().equals("") || sign_pw.getText().toString().equals("") || sign_pw2.getText().toString().equals("") || sign_name.getText().toString().equals("") || questionNum == -1
+                        || sign_pw_answer.getText().toString().equals("") || sign_phone.getText().toString().equals("") || sign_IP.getText().toString().equals("") || sign_PORT.getText().toString().equals("") ) {
                     Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n빈 칸을 모두 작성하여 주십시오.", Toast.LENGTH_SHORT).show();
                 } else if(!signup_imgname.getText().toString().equals("")){
                     Toast.makeText(signup.this, "회원가입에 실패하였습니다.\n이미지를 입력해 주십시오.", Toast.LENGTH_SHORT).show();
@@ -231,7 +230,7 @@ public class signup extends AppCompatActivity {
     }
 
     public ArrayList<String> sendRequest() {
-        String url = "http://35.244.111.116:52274/register/getQuestion";
+        String url = "http://35.221.206.41:52274/register/getQuestion";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
