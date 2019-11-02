@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,7 +42,7 @@ public class lostpw extends Activity {
     Spinner spinner1;
     JSONObject js = new JSONObject();
     private RequestQueue queue;
-
+    View lost_pw;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class lostpw extends Activity {
         queue = Volley.newRequestQueue(this);
         btn_lost_pw = (Button)findViewById(R.id.button_lostpw);
         back = findViewById(R.id.back2);
+        lost_pw = findViewById(R.id.lost_pw);
 
         if (AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());

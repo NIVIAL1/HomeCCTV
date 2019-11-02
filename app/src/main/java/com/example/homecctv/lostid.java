@@ -46,6 +46,7 @@ public class lostid extends Activity {
         name = (EditText)findViewById(R.id.lost_id_name);
         phone = (EditText)findViewById(R.id.lost_id_phone);
         btn_lostid = (Button)findViewById(R.id.button_lostid);
+
         back = findViewById(R.id.back1);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,7 @@ public class lostid extends Activity {
 
         queue = Volley.newRequestQueue(this);
         String url_lostid = "http://35.221.206.41:52274/find/idFind";
+
         final StringRequest lostid_request = new StringRequest(Request.Method.POST, url_lostid, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {               // 아이디찾기 성공 유무 보내주는 것 받음
@@ -96,7 +98,7 @@ public class lostid extends Activity {
                 Map<String, String> params = new HashMap<>();
                 params.put("userName",name.getText().toString());
                 params.put("phoneNum",phone.getText().toString());
-                Log.d("test","params 생성");
+                Log.d("test",params.toString());
                 return params;
             }
         };
@@ -109,8 +111,6 @@ public class lostid extends Activity {
                 }
                 else{
                     queue.add(lostid_request);
-                    startActivity(new Intent(getApplication(), Splash.class));
-
                 }
             }
         });
