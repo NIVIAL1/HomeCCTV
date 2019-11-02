@@ -48,19 +48,6 @@
         app:layout_constraintStart_toStartOf="@+id/change_pw2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
-    <EditText
-        android:id="@+id/change_pw2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:ems="10"
-        android:hint="비밀번호 확인"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/change_pw_request"
-        app:layout_constraintStart_toStartOf="@+id/change_pw_request"
-        app:layout_constraintTop_toBottomOf="@+id/change_pw" />
-
     <Spinner
         android:id="@+id/change_pw_request"
         android:layout_width="0dp"
@@ -73,6 +60,19 @@
         app:layout_constraintTop_toBottomOf="@+id/change_pw2">
 
     </Spinner>
+
+    <EditText
+        android:id="@+id/change_pw2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ems="10"
+        android:hint="비밀번호 확인"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/change_pw_request"
+        app:layout_constraintStart_toStartOf="@+id/change_pw_request"
+        app:layout_constraintTop_toBottomOf="@+id/change_pw" />
 
     <EditText
         android:id="@+id/change_pw_answer"

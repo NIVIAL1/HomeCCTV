@@ -27,6 +27,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 public class Splash extends Activity {
     EditText id,pw;
     private RequestQueue queue;
@@ -62,15 +64,24 @@ public class Splash extends Activity {
                     js = new JSONObject(response);
                     num = js.optString("result");
 
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
                 if(num.equals("1")){             // 성공
+                    UserData.questionNum = Integer.parseInt(js.optString("passQNum"));
+                    UserData.answer = js.optString("passAnswer");
+                    UserData.phone = js.optString("phoneNum");
+                    UserData.ip = js.optString("ipNum");
+                    UserData.port = js.optString("portNum");
+                    UserData.id = id.getText().toString();
+                    UserData.pw = pw.getText().toString();
+                    Log.d("test",UserData.port);
                     Toast.makeText(Splash.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Main_screen.class));
                 }
-                else if(num.equals("2")){       // 실패(비밀번호 틀림)
+                else if(num.equals("2")){        // 실패(비밀번호 틀림)
                     Toast.makeText(Splash.this, "로그인에 실패하였습니다.\n비밀번호가 틀렸습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else {                           // 실패(id 존재하지 않음)

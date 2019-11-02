@@ -91,7 +91,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", "0");
+                params.put("id", UserData.id);
                 params.put("controlData", "0");
                 return params;
             }
@@ -110,7 +110,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", "0");
+                params.put("id", UserData.id);
                 params.put("controlData", "1");
                 return params;
             }
@@ -129,7 +129,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", "0");
+                params.put("id", UserData.id);
                 params.put("controlData", "2");
                 return params;
             }
@@ -148,7 +148,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", "0");
+                params.put("id", UserData.id);
                 params.put("controlData", "3");
                 return params;
             }
