@@ -75,9 +75,9 @@ public class Splash extends Activity {
                     UserData.phone = js.optString("phoneNum");
                     UserData.ip = js.optString("ipNum");
                     UserData.port = js.optString("portNum");
+                    UserData.name = js.optString("userName");
                     UserData.id = id.getText().toString();
                     UserData.pw = pw.getText().toString();
-                    Log.d("test",UserData.port);
                     Toast.makeText(Splash.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Main_screen.class));
                 }
@@ -100,7 +100,6 @@ public class Splash extends Activity {
                 Map<String, String> params = new HashMap<>();
                 params.put("id",id.getText().toString());
                 params.put("password",pw.getText().toString());
-                Log.d("test",params.toString());
                 return params;
             }
         };

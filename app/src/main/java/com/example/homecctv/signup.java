@@ -149,7 +149,7 @@ public class signup extends AppCompatActivity {
 
 
 
-                 if(num.equals("1")){             // 성공
+                 if(num.equals("1")){                   // 성공
                         Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplication(), Splash.class));
                     }
@@ -223,12 +223,7 @@ public class signup extends AppCompatActivity {
                 }
             }
         });
-
-
     }
-
-
-
 
     @Override
     protected void onActivityResult ( int requestCode, int resultCode, Intent data){

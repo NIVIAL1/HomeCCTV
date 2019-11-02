@@ -2,6 +2,7 @@ package com.example.homecctv;
 
 import android.content.ClipData;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -17,10 +19,12 @@ import android.widget.Toast;
 
 public class input_image extends AppCompatActivity {
 
-    final int PICTURE_REQUEST_CODE = 100;
-    ImageView image1, image2, image3, back;
+    final int PICTURE_REQUEST_CODE = 1;
+    public String result = "hellow";
+    ImageView image, back;
     TextView input_img_name;
     Button btn_input_image;
+    public String path = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +34,7 @@ public class input_image extends AppCompatActivity {
         }
 
         Button MultiAlbumButton = (Button)findViewById(R.id.button_input_image);
-        image1 = (ImageView)findViewById(R.id.img1);
-        image2 = (ImageView)findViewById(R.id.img2);
-        image3 = (ImageView)findViewById(R.id.img3);
+        image = (ImageView)findViewById(R.id.img);
         input_img_name = (TextView)findViewById(R.id.input_image_name);
         btn_input_image = (Button)findViewById(R.id.button_input_img);
         back = findViewById(R.id.back4);
@@ -46,7 +48,25 @@ public class input_image extends AppCompatActivity {
         btn_input_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(input_image.this,"이미지 입력에 실패하였습니다.\n사진을 다시 선택해 주십시오.",Toast.LENGTH_SHORT).show();
+                if(path.equals(null)){
+                    Toast.makeText(input_image.this,"이미지 입력에 실패하였습니다.\n사진을 선택해 주십시오.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+
+                    new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                AndroidUploader uploader = new AndroidUploader();
+                                result = uploader.uploadPicture(path,UserData.id,UserData.name);
+                            } catch (Exception e) {
+                                Log.e(e.getClass().getName(), e.getMessage());
+                            }
+                        }
+                    }).start();
+                    Toast.makeText(input_image.this,"이미지 입력에 성공하였습니다.",Toast.LENGTH_SHORT).show();
+                    input_image.this.finish();
+                }
+
 
             }
         });
@@ -60,44 +80,45 @@ public class input_image extends AppCompatActivity {
             }
         });
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(requestCode == PICTURE_REQUEST_CODE){
-            if(resultCode == RESULT_OK){
-                image1.setImageResource(0);
-                image2.setImageResource(0);
-                image3.setImageResource(0);
+    protected void onActivityResult ( int requestCode, int resultCode, Intent data){
+        if (requestCode == PICTURE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                image.setImageResource(0);
                 input_img_name.setText("");
-                Uri uri = data.getData();
+                final Uri uri = data.getData();
                 ClipData clipData = data.getClipData();
 
-                if(clipData!=null){
-                    for(int i = 0 ; i < 3 ; i++){
-                        if(i<clipData.getItemCount()){
+                if (clipData != null) {
+                    for (int i = 0; i < 3; i++) {
+                        if (i < clipData.getItemCount()) {
                             Uri urione = clipData.getItemAt(i).getUri();
-                            switch(i){
+                            Log.d("img",urione.toString());
+                            switch (i) {
                                 case 0:
-                                    image1.setImageURI(urione);
+                                    image.setImageURI(urione);
+                                    Log.d("img",urione.toString());
                                     break;
-                                case 1:
-                                    image2.setImageURI(urione);
-                                    break;
-                                case 2:
-                                    image3.setImageURI(urione);
-                                    break;
-
                             }
                         }
                     }
-                }
-                else if(uri!=null){
-                    image1.setImageURI(uri);
+                } else if (uri != null) {
+                    path=getPath(uri);
+                    image.setImageURI(uri);
                 }
             }
-
         }
     }
 
+    public String getPath(Uri uri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(uri, projection, null, null, null);
+        startManagingCursor(cursor);
+        int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(columnIndex);
+    }
 
 
 
