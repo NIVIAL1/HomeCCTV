@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,6 +41,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
     private ImageView record, up, down, right, left;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
+    TextView record_signal;
 
 
     @Override
@@ -63,10 +65,13 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         down = findViewById(R.id.button_down);
         right = findViewById(R.id.button_right);
         left = findViewById(R.id.button_left);
+        record_signal = findViewById(R.id.record_signal);
         queue = Volley.newRequestQueue(this);
 
         String url = "http://35.221.206.41:52274/control/cameraSigFM";          // 서버 주소
         WebView webView = (WebView)findViewById(R.id.webView);
+
+        String url_record = "http://35.221.206.41:52274/control/cameraSigHT";
 
         String url_web = "http://192.168.0.32:9004/?action=stream";             // 카메라 주소
         webView.loadUrl(url_web);
@@ -80,7 +85,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(Main_screen.this,response,Toast.LENGTH_SHORT);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -153,6 +157,49 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
                 return params;
             }
         };
+
+        final StringRequest record_request_on = new StringRequest(Request.Method.POST, url_record, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", UserData.id);
+                params.put("controlData", "1");
+                Toast.makeText(Main_screen.this,"녹화를 시작합니다.",Toast.LENGTH_SHORT).show();
+                record_signal.setText("On_Air");
+                return params;
+            }
+        };
+        final StringRequest record_request_off = new StringRequest(Request.Method.POST, url_record, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", UserData.id);
+                params.put("controlData", "0");
+                Toast.makeText(Main_screen.this,"녹화를 종료합니다.",Toast.LENGTH_SHORT).show();
+                record_signal.setText("Off_Air");
+                return params;
+            }
+        };
         stringRequest_up.setTag(TAG);
         stringRequest_down.setTag(TAG);
         stringRequest_left.setTag(TAG);
@@ -198,11 +245,11 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             public void onClick(View v) {
                 if(inputcount%2==0){
                     inputcount++;
-                    Toast.makeText(Main_screen.this,"녹화를 시작합니다.",Toast.LENGTH_SHORT).show();
+                    queue.add(record_request_on);
                 }
                 else{
                     inputcount++;
-                    Toast.makeText(Main_screen.this,"녹화를 종료합니다.",Toast.LENGTH_SHORT).show();
+                    queue.add(record_request_off);
                 }
 
 
