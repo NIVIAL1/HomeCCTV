@@ -110,6 +110,12 @@ public class change_info extends Activity {
 
                 if(num.equals("1")){                // 성공
                     Toast.makeText(change_info.this, "정보변경에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                    UserData.pw = pw.getText().toString();
+                    UserData.phone = phone.getText().toString();
+                    UserData.questionNum = questionNum;
+                    UserData.answer = answer.getText().toString();
+                    UserData.ip = ip.getText().toString();
+                    UserData.port = port.getText().toString();
                     change_info.this.finish();
                 }
                 else{                               // 실패
