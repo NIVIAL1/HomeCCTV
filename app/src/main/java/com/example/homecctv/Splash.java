@@ -78,6 +78,7 @@ public class Splash extends Activity {
                     UserData.name = js.optString("userName");
                     UserData.id = id.getText().toString();
                     UserData.pw = pw.getText().toString();
+                    UserData.status = Integer.parseInt(js.optString("status"));
                     Toast.makeText(Splash.this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Main_screen.class));
                 }

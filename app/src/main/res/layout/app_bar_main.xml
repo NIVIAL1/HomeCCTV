@@ -25,7 +25,7 @@
     <include
         android:id="@+id/include"
         layout="@layout/content_main"
-        android:layout_width="418dp"
+        android:layout_width="match_parent"
         android:layout_height="674dp"
         app:layout_anchorGravity="bottom|center"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,10 +119,13 @@
         android:id="@+id/record_signal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_down"
-        app:layout_constraintVertical_bias="0.569" />
+        android:text="___"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toTopOf="@+id/button_right"
+        app:layout_constraintEnd_toEndOf="@+id/include"
+        app:layout_constraintHorizontal_bias="0.522"
+        app:layout_constraintStart_toEndOf="@+id/button_up"
+        app:layout_constraintTop_toBottomOf="@+id/webView"
+        app:layout_constraintVertical_bias="0.504" />
 
 </android.support.constraint.ConstraintLayout>

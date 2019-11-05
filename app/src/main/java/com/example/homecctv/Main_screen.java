@@ -42,7 +42,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
     private RequestQueue queue;
     private static final String TAG = "MAIN";
     TextView record_signal;
-
+    int inputcount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +67,20 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         left = findViewById(R.id.button_left);
         record_signal = findViewById(R.id.record_signal);
         queue = Volley.newRequestQueue(this);
+        inputcount = UserData.status;
+        if(inputcount == 1){
+            record_signal.setText("on_Air");
+        }
+        else{
+            record_signal.setText("off_Air");
+        }
 
         String url = "http://35.221.206.41:52274/control/cameraSigFM";          // 서버 주소
         WebView webView = (WebView)findViewById(R.id.webView);
 
-        String url_record = "http://35.221.206.41:52274/control/cameraSigHT";
+        String url_record = "http://35.221.206.41:52274/control/cameraSigTH";   // 녹화 주소
 
-        String url_web = "http://192.168.0.32:9004/?action=stream";             // 카메라 주소
+        String url_web = "http://192.168.43.69:9004/?action=stream";             // 카메라 주소
         webView.loadUrl(url_web);
         webView.setPadding(0,0,0,0);
         //webView.setInitialScale(100);
@@ -174,8 +181,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
                 Map<String, String> params = new HashMap<>();
                 params.put("id", UserData.id);
                 params.put("controlData", "1");
-                Toast.makeText(Main_screen.this,"녹화를 시작합니다.",Toast.LENGTH_SHORT).show();
-                record_signal.setText("On_Air");
                 return params;
             }
         };
@@ -195,8 +200,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
                 Map<String, String> params = new HashMap<>();
                 params.put("id", UserData.id);
                 params.put("controlData", "0");
-                Toast.makeText(Main_screen.this,"녹화를 종료합니다.",Toast.LENGTH_SHORT).show();
-                record_signal.setText("Off_Air");
                 return params;
             }
         };
@@ -239,16 +242,21 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         });
 
         record.setOnClickListener(new View.OnClickListener() {
-            int inputcount = 0;
 
             @Override
             public void onClick(View v) {
                 if(inputcount%2==0){
                     inputcount++;
+                    record_signal.setText("On_Air");
+                    record_signal.setTextColor(Color.rgb(255,0,0));
+                    Toast.makeText(Main_screen.this,"녹화 시작",Toast.LENGTH_SHORT);
                     queue.add(record_request_on);
                 }
                 else{
                     inputcount++;
+                    record_signal.setText("Off_Air");
+                    record_signal.setTextColor(Color.rgb(0,0,0));
+                    Toast.makeText(Main_screen.this,"녹화 중지",Toast.LENGTH_SHORT);
                     queue.add(record_request_off);
                 }
 
@@ -296,7 +304,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.

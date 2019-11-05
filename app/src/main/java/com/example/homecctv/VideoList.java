@@ -41,7 +41,7 @@ public class VideoList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(VideoList.this, position+"번째 선택", Toast.LENGTH_SHORT).show();
+                Toast.makeText(VideoList.this, position+"번째 선택", Toast.LENGTH_SHORT).show();
                 UserData.video_name = lookup.videoArr.get(position);
                 startActivity(new Intent(VideoList.this, video_view.class));
             }
