@@ -1,12 +1,17 @@
 package com.example.homecctv;
 
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Message;
+import android.os.PowerManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -15,6 +20,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,8 +47,10 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
     private ImageView record, up, down, right, left;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
+    private boolean isBind;
     TextView record_signal;
     int inputcount;
+    private Intent serviceIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +76,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         record_signal = findViewById(R.id.record_signal);
         queue = Volley.newRequestQueue(this);
         inputcount = UserData.status;
+
         if(inputcount == 1){
             record_signal.setText("on_Air");
         }
@@ -80,7 +89,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
 
         String url_record = "http://35.221.206.41:52274/control/cameraSigTH";   // 녹화 주소
 
-        String url_web = "http://192.168.43.69:9004/?action=stream";             // 카메라 주소
+        String url_web = "http://192.168.43.69:9004/?action=stream";            // 카메라 주소
         webView.loadUrl(url_web);
         webView.setPadding(0,0,0,0);
         //webView.setInitialScale(100);
@@ -88,6 +97,28 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
+
+        PowerManager pm = (PowerManager) getApplicationContext().getSystemService(POWER_SERVICE);
+        boolean isWhiteListing = false;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            isWhiteListing = pm.isIgnoringBatteryOptimizations(getApplicationContext().getPackageName());
+        }
+        if (!isWhiteListing) {
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            intent.setData(Uri.parse("package:" + getApplicationContext().getPackageName()));
+            startActivity(intent);
+        }
+
+        if (RealService.serviceIntent==null) {
+            serviceIntent = new Intent(this, RealService.class);
+            startService(serviceIntent);
+        } else {
+            serviceIntent = RealService.serviceIntent;//getInstance().getApplication();
+            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
+        }
+
+
 
         final StringRequest stringRequest_up = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
@@ -165,6 +196,8 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             }
         };
 
+
+
         final StringRequest record_request_on = new StringRequest(Request.Method.POST, url_record, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -203,6 +236,8 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
                 return params;
             }
         };
+
+
         stringRequest_up.setTag(TAG);
         stringRequest_down.setTag(TAG);
         stringRequest_left.setTag(TAG);
@@ -327,6 +362,13 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (serviceIntent!=null) {
+            stopService(serviceIntent);
+            serviceIntent = null;
+        }
+    }
 }
 

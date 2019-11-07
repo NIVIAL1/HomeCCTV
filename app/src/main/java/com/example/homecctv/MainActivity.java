@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     private class splashhandler implements Runnable{
         public void run(){
+
             startActivity(new Intent(getApplication(), Splash.class));
             MainActivity.this.finish();
         }

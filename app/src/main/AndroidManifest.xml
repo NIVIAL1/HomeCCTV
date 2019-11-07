@@ -10,6 +10,13 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:required="true" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+
 
     <application
         android:allowBackup="true"
@@ -20,7 +27,6 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity android:name=".VideoList"/>
-
         <activity android:name=".VideoListAdapter" />
         <activity
             android:name=".MainActivity"
@@ -44,7 +50,29 @@
         <activity android:name=".video_list" />
         <activity android:name=".video_view">
 
+
         </activity>
+        <service
+            android:name=".RealService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <service
+            android:name=".RestartService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".AlarmRecever"/>
+
+        <receiver
+            android:name=".RebootRecever"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
