@@ -87,7 +87,6 @@ public class lookup extends Activity {
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.d("test",response);
                 response  = response.replace("\"","");
                 response  = response.replace("[","");
                 response  = response.replace("]","");

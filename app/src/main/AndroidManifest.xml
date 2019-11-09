@@ -48,10 +48,16 @@
         <activity android:name=".input_image" />
         <activity android:name=".lookup" />
         <activity android:name=".video_list" />
-        <activity android:name=".video_view">
 
-
-        </activity>
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
         <service
             android:name=".RealService"
             android:enabled="true"
