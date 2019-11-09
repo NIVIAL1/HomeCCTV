@@ -76,7 +76,7 @@ public class signup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
         if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(Color.rgb(00, 85, 77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.READ_EXTERNAL_STORAGE)) {

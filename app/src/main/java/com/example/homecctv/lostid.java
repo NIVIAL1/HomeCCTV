@@ -40,7 +40,7 @@ public class lostid extends Activity {
         setContentView(R.layout.lost_id);
 
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
 
         name = (EditText)findViewById(R.id.lost_id_name);

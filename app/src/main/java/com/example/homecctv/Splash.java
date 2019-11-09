@@ -41,7 +41,7 @@ public class Splash extends Activity {
         setContentView(R.layout.login);
 
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
         btn_signup = findViewById(R.id.signup);
         btn_lostid = findViewById(R.id.lostid);

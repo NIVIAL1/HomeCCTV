@@ -47,7 +47,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
     private ImageView record, up, down, right, left;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
-    private boolean isBind;
     TextView record_signal;
     int inputcount;
     private Intent serviceIntent;
@@ -57,7 +56,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -79,6 +78,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
 
         if(inputcount == 1){
             record_signal.setText("on_Air");
+            record_signal.setTextColor(Color.rgb(255,0,0));
         }
         else{
             record_signal.setText("off_Air");
@@ -345,9 +345,19 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         int id = item.getItemId();
 
         if (id == R.id.logout) {
+            UserData.id = null;
+            UserData.pw = null;
+            UserData.name = null;
+            UserData.status = -1;
+            UserData.port = null;
+            UserData.answer = null;
+            UserData.questionNum = -1;
+            UserData.phone = null;
+            UserData.video_name = null;
+            UserData.ip = null;
+
             Toast.makeText(Main_screen.this,"로그아웃\n로그인 화면으로 돌아갑니다.",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplication(), Splash.class));
-            Main_screen.this.finish();
         } else if (id == R.id.changesign) {
             startActivity(new Intent(getApplication(), change_info.class));
         } else if (id == R.id.inputimage) {

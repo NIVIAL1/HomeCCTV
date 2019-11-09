@@ -14,12 +14,13 @@ public class video_view extends AppCompatActivity implements SurfaceHolder.Callb
     SurfaceView surfaceView;
     SurfaceHolder surfaceHolder;
     MediaPlayer mediaPlayer;
+    String path = "http://35.221.206.41:52274/loading/videoLoading/?videoName="+UserData.video_name;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.videoview);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
         surfaceView = findViewById(R.id.surfaceView);
         surfaceHolder = surfaceView.getHolder();
@@ -37,7 +38,7 @@ public class video_view extends AppCompatActivity implements SurfaceHolder.Callb
 
         try {
 
-            String path = "http://35.221.206.41:52274/loading/videoLoading/?videoName="+UserData.video_name;
+
             mediaPlayer.setDataSource(path);
             //mediaPlayer.setVolume(0, 0); //볼륨 제거
             mediaPlayer.setDisplay(surfaceHolder); // 화면 호출

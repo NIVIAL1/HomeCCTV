@@ -30,7 +30,7 @@ public class input_image extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.input_image);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
 
         Button MultiAlbumButton = (Button)findViewById(R.id.button_input_image);

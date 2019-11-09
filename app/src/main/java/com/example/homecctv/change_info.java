@@ -47,7 +47,7 @@ public class change_info extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
         setContentView(R.layout.change_info);
         pw = findViewById(R.id.change_pw);

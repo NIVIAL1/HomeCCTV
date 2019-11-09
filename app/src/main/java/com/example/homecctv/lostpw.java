@@ -48,7 +48,7 @@ public class lostpw extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lost_pw);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
         id = (EditText)findViewById(R.id.lost_pw_id);
         answer = (EditText)findViewById(R.id.lost_pw_answer);

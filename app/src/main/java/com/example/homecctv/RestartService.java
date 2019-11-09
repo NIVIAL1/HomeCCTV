@@ -12,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 
 public class RestartService extends Service {
+
+
     public RestartService() {
     }
 
@@ -40,17 +42,27 @@ public class RestartService extends Service {
             manager.createNotificationChannel(new NotificationChannel("default", "기본 채널", NotificationManager.IMPORTANCE_NONE));
         }
 
+
         Notification notification = builder.build();
         startForeground(9, notification);
 
-        /////////////////////////////////////////////////////////////////////
-        Intent in = new Intent(this, RealService.class);
-        startService(in);
+        if(UserData.id == null){
+            stopForeground(true);
+            stopSelf();
+        }
+        else{
+            Intent in = new Intent(this, RealService.class);
+            startService(in);
 
-        stopForeground(true);
-        stopSelf();
 
+            stopForeground(true);
+            stopSelf();
+
+
+        }
         return START_NOT_STICKY;
+
+
     }
 
     @Nullable

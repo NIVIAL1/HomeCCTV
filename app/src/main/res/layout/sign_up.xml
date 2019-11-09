@@ -45,6 +45,7 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="아이디"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -83,6 +84,7 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="이름"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_pw2" />
@@ -111,6 +113,7 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="비밀번호 찾기 답변"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_name" />
@@ -123,6 +126,8 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="전화번호"
+        android:singleLine="true"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_pw_answer" />
@@ -135,6 +140,7 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="IP"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_phone" />
@@ -147,6 +153,8 @@
         android:layout_marginEnd="9dp"
         android:ems="10"
         android:hint="PORT"
+        android:singleLine="true"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_IP" />

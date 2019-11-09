@@ -83,6 +83,7 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="비밀번호 찾기 답변"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="@+id/change_phone"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/change_phone"
@@ -96,6 +97,8 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="전화번호"
+        android:singleLine="true"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="@+id/change_IP"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/change_IP"
@@ -109,6 +112,7 @@
         android:layout_marginRight="10dp"
         android:ems="10"
         android:hint="IP"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="@+id/change_PORT"
         app:layout_constraintStart_toStartOf="@+id/change_PORT"
         app:layout_constraintTop_toBottomOf="@+id/change_phone" />
@@ -120,6 +124,8 @@
         android:layout_marginLeft="10dp"
         android:ems="10"
         android:hint="PORT"
+        android:singleLine="true"
+        android:inputType="number"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/change_IP" />
 

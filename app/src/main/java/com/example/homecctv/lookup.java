@@ -45,7 +45,7 @@ public class lookup extends Activity {
         setContentView(R.layout.lookup);
         intent = new Intent(getApplicationContext(), VideoList.class);
         if(Build.VERSION.SDK_INT>=21){
-            getWindow().setStatusBarColor(Color.rgb(00,85,77));
+            getWindow().setStatusBarColor(Color.rgb(0,0,0));
         }
 
         calendarView = (CalendarView)findViewById(R.id.calendar);

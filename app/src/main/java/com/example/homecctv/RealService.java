@@ -15,6 +15,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -35,22 +36,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RealService extends Service {
-    private Thread mainThread;
+    static Thread mainThread;
     public static Intent serviceIntent = null;
     private RequestQueue queue;
     JSONObject js = new JSONObject();
     String url_signal;
     SimpleDateFormat sdf = null;
     Date date;
+    String id = null;
 
     public RealService() {
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        id = UserData.id;
         serviceIntent = intent;
-        showToast(getApplication(), "Start Service");
+        showToast(getApplication(), "실시간 알림서비스 시작");
         url_signal = "http://35.221.206.41:52274/control/mobileSig";
+
         if (AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
         }
@@ -63,6 +68,7 @@ public class RealService extends Service {
                 boolean run = true;
                 while (run) {
                     try {
+
                         StringRequest request = new StringRequest(Request.Method.POST, url_signal, new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {               // 서버에 이상 상황이 있는지 확인
@@ -92,8 +98,10 @@ public class RealService extends Service {
                         {
                             @Override
                             protected Map<String, String> getParams() throws AuthFailureError {
+
                                 Map<String, String> params = new HashMap<>();
-                                params.put("id",UserData.id);
+                                params.put("id",id);
+
                                 return params;
                             }
                         };
@@ -125,6 +133,7 @@ public class RealService extends Service {
         serviceIntent = null;
         setAlarmTimer();
         Thread.currentThread().interrupt();
+
 
         if (mainThread != null) {
             mainThread.interrupt();
@@ -173,12 +182,13 @@ public class RealService extends Service {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 
+
         String channelId = "fcm_default_channel";//getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.icon)
-                        .setContentTitle("침입감지")
+                        .setContentTitle("HomeCCTV")
                         .setContentText("침입이 감지되었습니다.")
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
@@ -192,7 +202,6 @@ public class RealService extends Service {
             NotificationChannel channel = new NotificationChannel(channelId,"Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
             notificationManager.createNotificationChannel(channel);
         }
-
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
