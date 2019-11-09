@@ -209,7 +209,7 @@ public class VideoList extends AppCompatActivity {
                 input = new BufferedInputStream(url.openStream(), 8192);
 
                 path= Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                outputFile= new File(path, "yang_201911090000.mp4"); //파일명까지 포함함 경로의 File 객체 생성
+                outputFile= new File(path, UserData.video_name); //파일명까지 포함함 경로의 File 객체 생성
 
                 // SD카드에 저장하기 위한 Output stream
                 output = new FileOutputStream(outputFile);

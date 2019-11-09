@@ -43,7 +43,7 @@ public class RealService extends Service {
     String url_signal;
     SimpleDateFormat sdf = null;
     Date date;
-    String id = null;
+    public static String id = null;
 
     public RealService() {
 

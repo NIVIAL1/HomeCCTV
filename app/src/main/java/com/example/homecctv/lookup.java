@@ -92,10 +92,19 @@ public class lookup extends Activity {
                 response  = response.replace("]","");
                 String[] name = response.split(",");
                 videoArr.clear();
-                for (int i = 0; i < name.length; i++) {
-                    videoArr.add(name[i]);
+                if(!name[0].equals(" ")){
+                    for (int i = 0; i < name.length; i++) {
+                        videoArr.add(name[i]);
+                    }
                 }
-                startActivity(intent);
+                if(videoArr.size()==0){
+                    Toast.makeText(lookup.this,"선택된 날짜에 해당하는 동영상이 없습니다.",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    startActivity(intent);
+                }
+
+
             }
         },
                 new Response.ErrorListener() { //에러발생시 호출될 리스너 객체

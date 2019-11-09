@@ -2,6 +2,7 @@ package com.example.homecctv;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main_screen extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private ImageView record, up, down, right, left;
+    private ImageView record, up, down, right, left, up2, down2, right2, left2;
     private RequestQueue queue;
     private static final String TAG = "MAIN";
     TextView record_signal;
@@ -63,7 +65,15 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         down = findViewById(R.id.button_down);
         right = findViewById(R.id.button_right);
         left = findViewById(R.id.button_left);
+        up2 = findViewById(R.id.button_up2);
+        down2 = findViewById(R.id.button_down2);
+        right2 = findViewById(R.id.button_right2);
+        left2 = findViewById(R.id.button_left2);
         record_signal = findViewById(R.id.record_signal);
+        up2.setVisibility(View.GONE);
+        down2.setVisibility(View.GONE);
+        right2.setVisibility(View.GONE);
+        left2.setVisibility(View.GONE);
         queue = Volley.newRequestQueue(this);
         inputcount = UserData.status;
 
@@ -106,6 +116,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             startService(serviceIntent);
         } else {
             serviceIntent = RealService.serviceIntent;//getInstance().getApplication();
+            RealService.id = UserData.id;
             Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
         }
 
@@ -239,31 +250,92 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        up.setOnClickListener(new View.OnClickListener() {
+//        up.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                queue.add(stringRequest_up);
+//            }
+//        });
+        up.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_up);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    up.setVisibility(View.INVISIBLE);
+                    up2.setVisibility(View.VISIBLE);
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    up2.setVisibility(View.GONE);
+                    up.setVisibility(View.VISIBLE);
+                    queue.add(stringRequest_up);
+                }
+                return true;
             }
         });
 
-        down.setOnClickListener(new View.OnClickListener() {
+
+//        down.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                queue.add(stringRequest_down);
+//            }
+//        });
+        down.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_down);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    down.setVisibility(View.INVISIBLE);
+                    down2.setVisibility(View.VISIBLE);
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    down2.setVisibility(View.GONE);
+                    down.setVisibility(View.VISIBLE);
+                    queue.add(stringRequest_down);
+                }
+                return true;
             }
         });
 
-        right.setOnClickListener(new View.OnClickListener() {
+//        right.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                queue.add(stringRequest_right);
+//            }
+//        });
+        right.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_right);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    right.setVisibility(View.INVISIBLE);
+                    right2.setVisibility(View.VISIBLE);
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    right2.setVisibility(View.GONE);
+                    right.setVisibility(View.VISIBLE);
+                    queue.add(stringRequest_right);
+                }
+                return true;
             }
         });
 
-        left.setOnClickListener(new View.OnClickListener() {
+//        left.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                queue.add(stringRequest_left);
+//            }
+//        });
+        left.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                queue.add(stringRequest_left);
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    left.setVisibility(View.INVISIBLE);
+                    left2.setVisibility(View.VISIBLE);
+                }
+                else if(event.getAction() == MotionEvent.ACTION_UP){
+                    left2.setVisibility(View.GONE);
+                    left.setVisibility(View.VISIBLE);
+                    queue.add(stringRequest_left);
+                }
+                return true;
             }
         });
 

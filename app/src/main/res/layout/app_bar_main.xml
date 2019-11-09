@@ -32,6 +32,48 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     <ImageView
+        android:id="@+id/button_right2"
+        android:layout_width="101dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
+        app:layout_anchor="@+id/record"
+        app:layout_anchorGravity="right|center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/record"
+        app:layout_constraintTop_toTopOf="@+id/record"
+        app:srcCompat="@drawable/right2" />
+
+    <ImageView
+        android:id="@+id/button_left2"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        app:layout_anchor="@+id/record"
+        app:layout_anchorGravity="left|center"
+        app:layout_constraintEnd_toStartOf="@+id/record"
+        app:layout_constraintTop_toTopOf="@+id/record"
+        app:srcCompat="@drawable/left2" />
+
+    <ImageView
+        android:id="@+id/button_down2"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_anchor="@+id/record"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_constraintBottom_toBottomOf="@+id/include"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/record"
+        app:layout_constraintVertical_bias="0.184"
+        app:srcCompat="@drawable/down2" />
+
+    <ImageView
         android:id="@+id/button_up"
         android:layout_width="100dp"
         android:layout_height="60dp"
@@ -45,6 +87,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/webView"
         app:srcCompat="@drawable/up" />
+
+    <ImageView
+        android:id="@+id/button_up2"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        app:layout_anchor="@+id/record"
+        app:layout_anchorGravity="top|center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/webView"
+        app:srcCompat="@drawable/up2" />
 
     <ImageView
         android:id="@+id/button_down"

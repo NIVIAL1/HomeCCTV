@@ -134,6 +134,16 @@ public class signup extends AppCompatActivity {
 
                  if(num.equals("1")){                   // 성공
                         Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+                     new Thread(new Runnable() {
+                         public void run() {
+                             try {
+                                 AndroidUploader uploader = new AndroidUploader();
+                                 result = uploader.uploadPicture(path,sign_id.getText().toString(),sign_name.getText().toString());
+                             } catch (Exception e) {
+                                 Log.e(e.getClass().getName(), e.getMessage());
+                             }
+                         }
+                     }).start();
                         startActivity(new Intent(getApplication(), Splash.class));
                     }
                     else{                               // 실패
@@ -193,16 +203,7 @@ public class signup extends AppCompatActivity {
                 } else {
                     queue.add(signup_request);
 
-                    new Thread(new Runnable() {
-                        public void run() {
-                            try {
-                                AndroidUploader uploader = new AndroidUploader();
-                                result = uploader.uploadPicture(path,sign_id.getText().toString(),sign_name.getText().toString());
-                            } catch (Exception e) {
-                                Log.e(e.getClass().getName(), e.getMessage());
-                            }
-                        }
-                    }).start();
+
                 }
             }
         });
