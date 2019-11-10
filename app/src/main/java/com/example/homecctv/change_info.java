@@ -59,6 +59,9 @@ public class change_info extends Activity {
 
         change_info = (Button)findViewById(R.id.button_change_info);
 
+        phone.setText(UserData.phone);
+        ip.setText(UserData.ip);
+        port.setText(UserData.port);
 
         queue = Volley.newRequestQueue(this);
 

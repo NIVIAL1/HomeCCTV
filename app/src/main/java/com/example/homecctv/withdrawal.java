@@ -70,6 +70,7 @@ public class withdrawal extends Activity {
                 }
 
                 if(result.equals("1")){             // 성공
+                    RealService.id = "-1";
                     Toast.makeText(withdrawal.this, "회원탈퇴에 성공하였습니다.", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplication(), Splash.class));
 

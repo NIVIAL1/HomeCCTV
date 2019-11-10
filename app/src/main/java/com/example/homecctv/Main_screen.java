@@ -115,9 +115,8 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             serviceIntent = new Intent(this, RealService.class);
             startService(serviceIntent);
         } else {
-            serviceIntent = RealService.serviceIntent;//getInstance().getApplication();
+            serviceIntent = RealService.serviceIntent;                             //getInstance().getApplication();
             RealService.id = UserData.id;
-            Toast.makeText(getApplicationContext(), "already", Toast.LENGTH_LONG).show();
         }
 
 
@@ -418,7 +417,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
             UserData.phone = null;
             UserData.video_name = null;
             UserData.ip = null;
-
+            RealService.id = "-1";
             Toast.makeText(Main_screen.this,"로그아웃\n로그인 화면으로 돌아갑니다.",Toast.LENGTH_SHORT).show();
             startActivity(new Intent(getApplication(), Splash.class));
         } else if (id == R.id.changesign) {
