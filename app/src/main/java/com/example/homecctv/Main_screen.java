@@ -339,7 +339,6 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
         });
 
         record.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 if(inputcount%2==0){
