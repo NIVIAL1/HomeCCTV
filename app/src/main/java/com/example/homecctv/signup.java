@@ -96,9 +96,6 @@ public class signup extends AppCompatActivity {
         sendRequest();
 
 
-
-
-
         spinner1 = findViewById(R.id.sign_pw_request);
         adapterSpinner1 = new AdapterSpinner1(this, data);
         spinner1.setAdapter(adapterSpinner1);
@@ -133,7 +130,9 @@ public class signup extends AppCompatActivity {
                 }
 
                  if(num.equals("1")){                   // 성공
-                        Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
+                     Toast.makeText(signup.this, "회원가입에 성공하였습니다.", Toast.LENGTH_SHORT).show();
+
                      new Thread(new Runnable() {
                          public void run() {
                              try {

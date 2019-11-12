@@ -90,7 +90,7 @@ public class Main_screen extends AppCompatActivity implements NavigationView.OnN
 
         String url_record = "http://35.221.206.41:52274/control/cameraSigTH";   // 녹화 주소
 
-        String url_web = "http://192.168.43.69:9004/?action=stream";            // 카메라 주소
+        String url_web = "http://192.168.43.113:9004/?action=stream";            // 카메라 주소
         webView.loadUrl(url_web);
         webView.setPadding(0,0,0,0);
         //webView.setInitialScale(100);

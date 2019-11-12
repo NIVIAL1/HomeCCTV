@@ -54,7 +54,7 @@ public class RealService extends Service {
         id = UserData.id;
         serviceIntent = intent;
         showToast(getApplication(), "실시간 알림서비스 시작");
-        url_signal = "http://35.221.206.41:52274/control/mobileSig";
+        url_signal = "http://35.221.206.41:52274/imageLearning/classificate/m";
 
         if (AppHelper.requestQueue == null) {
             AppHelper.requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -81,9 +81,12 @@ public class RealService extends Service {
                                     e.printStackTrace();
                                 }
 
-                                if(num.equals("1")){                // 알람 메시지 출력
+                                if(num.equals("1")){                // 모션 발생 시 알림메시지 출력
 
                                     sendNotification(sdf.format(date));
+                                }
+                                else if(num.equals("2")){           // 사용자 이외의 얼굴이 인식되었을 시 알람메시지 출력
+                                    sendNotification2(sdf.format(date));
                                 }
                                 else {                           // 이상 없음(그냥 넘어감)
                                 }
@@ -187,7 +190,7 @@ public class RealService extends Service {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.icon)
+                        .setSmallIcon(R.drawable.icon2)
                         .setContentTitle("HomeCCTV")
                         .setContentText("침입이 감지되었습니다.")
                         .setAutoCancel(true)
@@ -204,6 +207,32 @@ public class RealService extends Service {
         }
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
+    private void sendNotification2(String messageBody) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 
+
+        String channelId = "fcm_default_channel";//getString(R.string.default_notification_channel_id);
+        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(this, channelId)
+                        .setSmallIcon(R.drawable.icon)
+                        .setContentTitle("HomeCCTV")
+                        .setContentText("사용자가 아닌 사람이 감지되었습니다.")
+                        .setAutoCancel(true)
+                        .setSound(defaultSoundUri)
+                        .setPriority(Notification.PRIORITY_HIGH)
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Since android Oreo notification channel is needed.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(channelId,"Channel human readable title", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
 
 }
